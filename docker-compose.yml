@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+    next:
+      image: node:15.0.1
+      volumes:
+        - ./app:/home/app
+        - node_modules_volume:/home/app/node_modules
+      ports:
+        - 3000:3000
+      working_dir: /home/app
+      command: [bash, -c, yarn upgrade --no-progress --network-timeout 1000000 && yarn run dev]
+
+    mysql:
+        build: ./mysql
+        environment:
+            TZ: Asia/Tokyo
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: jamstack_db
+        ports:
+            - 13306:3306
+        volumes:
+            - mysql_volume:/var/lib/mysql
+    
+volumes:
+    mysql_volume:
+    node_modules_volume:
