@@ -10,8 +10,10 @@
   "homepage": "http://next-auth-typescript-example.now.sh",
   "main": "",
   "scripts": {
+    "migrate:deploy": "prisma migrate deploy",
     "dev": "next",
-    "build": "next build",
+    "build": "npm-run-all migrate:deploy build-app",
+    "build-app": "next build",
     "start": "next start",
     "types": "tsc --noEmit"
   },
@@ -37,6 +39,7 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "prisma": "^2.23.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.2.4"
   }
 }
